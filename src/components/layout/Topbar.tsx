@@ -19,7 +19,7 @@ export function Topbar({ onSearchClick }: TopbarProps) {
   const unacknowledgedCount = unackAlerts.length;
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border bg-surface px-6 lg:px-8">
+    <header className="sticky top-0 z-[2000] flex h-14 items-center justify-between border-b border-border bg-surface px-6 lg:px-8">
       {/* Spacer for mobile menu button */}
       <div className="w-8 lg:hidden" />
 
