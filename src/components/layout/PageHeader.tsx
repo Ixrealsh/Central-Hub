@@ -8,17 +8,17 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, description, actions }: PageHeaderProps) {
   return (
-    <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+    <div className="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-center">
       <div>
         <h1
           className="font-semibold"
-          style={{ fontSize: "20px", lineHeight: "28px" }}
+          style={{ fontSize: "22px", lineHeight: "28px" }}
         >
           {title}
         </h1>
         {description && (
           <p
-            className="mt-1 text-text-secondary"
+            className="mt-0.5 text-text-secondary"
             style={{ fontSize: "13.5px", lineHeight: "20px" }}
           >
             {description}

@@ -91,7 +91,7 @@ export default function PersonnelPage() {
   return (
     <>
       <PageHeader title="Officers" />
-      <div className="mb-4 flex flex-wrap items-center gap-3">
+      <div className="page-toolbar">
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by name or ID…" className="border border-border bg-surface px-3 py-1.5 outline-none placeholder:text-text-secondary" style={{ fontSize: "13.5px", borderRadius: "var(--radius-md)", maxWidth: "240px", width: "100%" }} />
         <div className="flex items-center gap-1">
           {statusOptions.map((s) => (

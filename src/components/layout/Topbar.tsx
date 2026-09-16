@@ -6,10 +6,11 @@ import { useRole } from "@/hooks/useRole";
 import { alerts } from "@/data/alerts";
 
 interface TopbarProps {
+  collapsed: boolean;
   onSearchClick: () => void;
 }
 
-export function Topbar({ onSearchClick }: TopbarProps) {
+export function Topbar({ collapsed, onSearchClick }: TopbarProps) {
   const { theme, toggleTheme } = useTheme();
   const { role } = useRole();
   const [alertsOpen, setAlertsOpen] = useState(false);
@@ -19,7 +20,7 @@ export function Topbar({ onSearchClick }: TopbarProps) {
   const unacknowledgedCount = unackAlerts.length;
 
   return (
-    <header className="sticky top-0 z-[2000] flex h-14 items-center justify-between border-b border-border bg-surface px-6 lg:px-8">
+    <header className={`fixed left-0 right-0 top-0 z-[2000] flex h-14 items-center gap-4 border-b border-border bg-surface px-4 shadow-sm transition-[left] duration-200 sm:px-5 lg:px-7 ${collapsed ? "lg:left-16" : "lg:left-60"}`}>
       {/* Spacer for mobile menu button */}
       <div className="w-8 lg:hidden" />
 
@@ -27,8 +28,8 @@ export function Topbar({ onSearchClick }: TopbarProps) {
       <button
         type="button"
         onClick={onSearchClick}
-        className="flex items-center gap-2 border border-border bg-bg px-3 py-1.5 text-text-secondary transition-colors hover:border-text-secondary"
-        style={{ fontSize: "13.5px", borderRadius: "var(--radius-md)", maxWidth: "320px", width: "100%" }}
+        className="flex min-w-0 flex-1 items-center gap-2 border border-border bg-bg px-3 py-1.5 text-left text-text-secondary shadow-sm transition-colors hover:border-text-secondary lg:max-w-md"
+        style={{ fontSize: "13px", borderRadius: "var(--radius-md)" }}
       >
         <Search size={16} aria-hidden="true" />
         <span className="hidden sm:inline">Search operations, officers, assets…</span>
@@ -39,7 +40,7 @@ export function Topbar({ onSearchClick }: TopbarProps) {
       </button>
 
       {/* Right actions */}
-      <div className="flex items-center gap-2">
+      <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
         {/* Theme toggle */}
         <button
           type="button"
@@ -85,7 +86,7 @@ export function Topbar({ onSearchClick }: TopbarProps) {
                 aria-hidden="true"
               />
               <div
-                className="absolute right-0 top-full z-40 mt-2 w-80 sm:w-96 border border-border bg-surface shadow-lg"
+                className="absolute right-0 top-full z-40 mt-2 w-[min(24rem,calc(100vw-2rem))] border border-border bg-surface shadow-lg"
                 style={{ borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-elevated)" }}
               >
                 <div className="flex items-center justify-between border-b border-border px-4 py-3">
@@ -153,7 +154,7 @@ export function Topbar({ onSearchClick }: TopbarProps) {
           className="inline-flex items-center justify-center p-2 text-text-secondary transition-colors hover:text-text-primary"
           style={{ borderRadius: "var(--radius-md)" }}
           aria-label="Help & Documentation"
-          title="Army CID Operations Prototype"
+          title="Centeral Hub"
         >
           <HelpCircle size={18} aria-hidden="true" />
         </button>

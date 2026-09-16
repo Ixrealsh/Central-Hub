@@ -65,14 +65,12 @@ export default function AssetsPage() {
   return (
     <>
       <PageHeader title="Assets" />
-      <div className="mb-4 flex flex-wrap items-center gap-3">
+      <div className="page-toolbar">
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search…" className="border border-border bg-surface px-3 py-1.5 outline-none placeholder:text-text-secondary" style={{ fontSize: "13.5px", borderRadius: "var(--radius-md)", maxWidth: "200px", width: "100%" }} />
         <div className="flex items-center gap-1">
-          {typeOptions.map((t) => (<button key={t} type="button" onClick={() => setTypeFilter((p) => { const n = new Set(p); n.has(t) ? n.delete(t) : n.add(t); return n; })} className={`border px-2 py-1 capitalize ${typeFilter.has(t) ? "border-accent-blue bg-accent-blue-bg text-accent-blue" : "border-border text-text-secondary hover:bg-surface-raised"}`} style={{ fontSize: "12px", borderRadius: "var(--radius-sm)" }}>{t}</button>))}
           {typeOptions.map((t) => (<button key={t} type="button" onClick={() => setTypeFilter((p) => { const n = new Set(p); if (n.has(t)) { n.delete(t); } else { n.add(t); } return n; })} className={`border px-2 py-1 capitalize ${typeFilter.has(t) ? "border-accent-blue bg-accent-blue-bg text-accent-blue" : "border-border text-text-secondary hover:bg-surface-raised"}`} style={{ fontSize: "12px", borderRadius: "var(--radius-sm)" }}>{t}</button>))}
         </div>
         <div className="flex items-center gap-1">
-          {statusOptions.map((s) => (<button key={s} type="button" onClick={() => setStatusFilter((p) => { const n = new Set(p); n.has(s) ? n.delete(s) : n.add(s); return n; })} className={`border px-2 py-1 capitalize ${statusFilter.has(s) ? "border-accent-blue bg-accent-blue-bg text-accent-blue" : "border-border text-text-secondary hover:bg-surface-raised"}`} style={{ fontSize: "12px", borderRadius: "var(--radius-sm)" }}>{s}</button>))}
           {statusOptions.map((s) => (<button key={s} type="button" onClick={() => setStatusFilter((p) => { const n = new Set(p); if (n.has(s)) { n.delete(s); } else { n.add(s); } return n; })} className={`border px-2 py-1 capitalize ${statusFilter.has(s) ? "border-accent-blue bg-accent-blue-bg text-accent-blue" : "border-border text-text-secondary hover:bg-surface-raised"}`} style={{ fontSize: "12px", borderRadius: "var(--radius-sm)" }}>{s}</button>))}
         </div>
       </div>

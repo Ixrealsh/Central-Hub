@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard, Crosshair, Map, Users, Package, MapPin,
-  MessageSquare, HeartPulse, FileText, Settings, CheckCircle, Menu, X,
+  MessageSquare, HeartPulse, FileText, Settings, CheckCircle, Menu, X, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useRole } from "@/hooks/useRole";
@@ -45,7 +45,12 @@ const navGroups = [
   },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  collapsed: boolean;
+  onToggle: () => void;
+}
+
+export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { role } = useRole();
 
@@ -72,13 +77,13 @@ export function Sidebar() {
       .filter((group) => group.items.length > 0);
   }, [role]);
 
-  const navContent = (
+  const navContent = (compact = false) => (
     <>
-      <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-4">
+      <nav className={`flex-1 space-y-4 overflow-y-auto py-3 ${compact ? "px-2" : "px-2.5"}`}>
         {filteredGroups.map((group) => (
           <div key={group.label}>
             <p
-              className="mb-2 px-3 font-semibold text-text-secondary"
+              className={`mb-1.5 px-3 font-semibold text-text-secondary ${compact ? "hidden" : ""}`}
               style={{ fontSize: "11px", letterSpacing: "0.05em" }}
             >
               {group.label}
@@ -91,16 +96,17 @@ export function Sidebar() {
                   end={item.to === "/"}
                   onClick={() => setMobileOpen(false)}
                   className={({ isActive }) =>
-                    `flex items-center gap-3 px-3 py-2 transition-colors duration-120 ${
+                    `flex items-center ${compact ? "justify-center px-2" : "gap-3 px-3"} py-1.5 transition-colors duration-120 ${
                       isActive
                         ? "border-l-2 border-l-accent-blue bg-accent-blue-bg font-medium text-accent-blue"
                         : "border-l-2 border-l-transparent text-text-secondary hover:bg-surface-raised hover:text-text-primary"
                     }`
                   }
                   style={{ fontSize: "13.5px", borderRadius: "0 var(--radius-md) var(--radius-md) 0" }}
+                  title={compact ? item.label : undefined}
                 >
                   <item.icon size={16} aria-hidden="true" />
-                  {item.label}
+                  {!compact && item.label}
                 </NavLink>
               ))}
             </div>
@@ -109,10 +115,10 @@ export function Sidebar() {
       </nav>
 
       {/* System status */}
-      <div className="border-t border-border px-6 py-4">
-        <div className="flex items-center gap-2">
+      <div className={`border-t border-border py-3 ${compact ? "px-2" : "px-5"}`}>
+        <div className={`flex items-center ${compact ? "justify-center" : "gap-2"}`}>
           <CheckCircle size={14} className="text-accent-green" aria-hidden="true" />
-          <span className="text-text-secondary" style={{ fontSize: "12px" }}>
+          <span className={`text-text-secondary ${compact ? "sr-only" : ""}`} style={{ fontSize: "12px" }}>
             System operational
           </span>
         </div>
@@ -134,20 +140,30 @@ export function Sidebar() {
       </button>
 
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-20 hidden w-60 flex-col border-r border-border bg-surface lg:flex">
+      <aside className={`fixed inset-y-0 left-0 z-20 hidden flex-col border-r border-border bg-surface transition-[width] duration-200 lg:flex ${collapsed ? "w-16" : "w-60"}`}>
         {/* Logo */}
-        <div className="flex h-14 items-center gap-2 border-b border-border px-6">
+        <div className={`relative flex h-14 items-center border-b border-border ${collapsed ? "justify-center px-2" : "gap-2 px-5"}`}>
           <div
             className="flex h-7 w-7 items-center justify-center bg-accent-blue font-semibold text-white"
             style={{ fontSize: "10px", borderRadius: "var(--radius-sm)" }}
           >
             CID
           </div>
-          <span className="font-semibold text-text-primary" style={{ fontSize: "13.5px" }}>
-            Operations Center
+          <span className={`font-semibold text-text-primary ${collapsed ? "sr-only" : ""}`} style={{ fontSize: "13.5px" }}>
+            Centeral Hub
           </span>
+          <button
+            type="button"
+            onClick={onToggle}
+            className={`absolute ${collapsed ? "-right-3" : "right-3"} top-4 hidden h-6 w-6 items-center justify-center border border-border bg-surface text-text-secondary shadow-sm hover:text-text-primary lg:inline-flex`}
+            style={{ borderRadius: "50%" }}
+            aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}
+            title={collapsed ? "Expand navigation" : "Collapse navigation"}
+          >
+            {collapsed ? <PanelLeftOpen size={13} aria-hidden="true" /> : <PanelLeftClose size={13} aria-hidden="true" />}
+          </button>
         </div>
-        {navContent}
+        {navContent(collapsed)}
       </aside>
 
       {/* Mobile sidebar overlay */}
@@ -159,7 +175,7 @@ export function Sidebar() {
             aria-hidden="true"
           />
           <aside className="fixed inset-y-0 left-0 z-50 flex w-60 flex-col border-r border-border bg-surface lg:hidden">
-            <div className="flex h-14 items-center justify-between border-b border-border px-6">
+            <div className="flex h-14 items-center justify-between border-b border-border px-5">
               <div className="flex items-center gap-2">
                 <div
                   className="flex h-7 w-7 items-center justify-center bg-accent-blue font-semibold text-white"
@@ -168,7 +184,7 @@ export function Sidebar() {
                   CID
                 </div>
                 <span className="font-semibold text-text-primary" style={{ fontSize: "13.5px" }}>
-                  Operations Center
+                  Centeral Hub
                 </span>
               </div>
               <button
@@ -180,7 +196,7 @@ export function Sidebar() {
                 <X size={18} aria-hidden="true" />
               </button>
             </div>
-            {navContent}
+            {navContent(false)}
           </aside>
         </>
       )}

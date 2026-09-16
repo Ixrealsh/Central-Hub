@@ -150,7 +150,7 @@ export default function OperationsPage() {
       <PageHeader title="Operations" description="All active and historical operations." />
 
       {/* Toolbar */}
-      <div className="mb-4 flex flex-wrap items-center gap-3">
+      <div className="page-toolbar">
         <input
           type="text"
           value={search}

@@ -26,7 +26,7 @@ export default function MapPage() {
       <PageHeader title="Map" description="Live view of operations, assets, and locations." />
 
       {/* Layer toggles */}
-      <div className="mb-4 flex items-center gap-3">
+      <div className="page-toolbar">
         {([
           { key: "locations", label: "Locations", val: showLocations, set: setShowLocations },
           { key: "operations", label: "Operations", val: showOperations, set: setShowOperations },

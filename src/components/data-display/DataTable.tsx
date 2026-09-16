@@ -116,17 +116,17 @@ export function DataTable<T>({
 
   return (
     <div>
-      <div className="overflow-x-auto border border-border" style={{ borderRadius: "var(--radius-lg)" }}>
-        <table className="w-full min-w-[640px]">
+      <div className="data-table-shell overflow-x-auto border border-border shadow-sm" style={{ borderRadius: "var(--radius-lg)" }}>
+        <table className="data-table w-full min-w-[680px]">
           <thead className="sticky top-0 z-10">
-            <tr className="border-b border-border bg-surface">
+            <tr className="border-b border-border bg-surface-raised">
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className={`px-4 text-left font-semibold text-text-secondary ${
+                  className={`px-3 text-left font-semibold uppercase tracking-[0.04em] text-text-secondary ${
                     col.sortable ? "cursor-pointer select-none hover:text-text-primary" : ""
                   }`}
-                  style={{ fontSize: "12px", lineHeight: "16px", height: "44px" }}
+                  style={{ fontSize: "11px", lineHeight: "16px", height: "40px" }}
                   onClick={col.sortable ? () => handleSort(col.key) : undefined}
                 >
                   <span className="inline-flex items-center gap-1">
@@ -155,7 +155,7 @@ export function DataTable<T>({
                       ? "border-l-2 border-l-accent-blue bg-accent-blue-bg"
                       : "hover:bg-surface-raised"
                   } ${onRowClick ? "cursor-pointer" : ""}`}
-                  style={{ height: "44px" }}
+                  style={{ height: "48px" }}
                   onClick={onRowClick ? () => onRowClick(row) : undefined}
                   tabIndex={onRowClick ? 0 : undefined}
                   onKeyDown={
@@ -172,7 +172,7 @@ export function DataTable<T>({
                   {columns.map((col) => (
                     <td
                       key={col.key}
-                      className="px-4"
+                      className="px-3"
                       style={{ fontSize: "13.5px", lineHeight: "20px" }}
                     >
                       {col.render
@@ -188,7 +188,7 @@ export function DataTable<T>({
       </div>
 
       {/* Pagination */}
-      <div className="mt-3 flex items-center justify-between">
+      <div className="mt-2 flex items-center justify-between px-0.5">
         <p className="text-text-secondary" style={{ fontSize: "12px", lineHeight: "16px" }}>
           Showing {showingStart}–{showingEnd} of {sortedData.length}
         </p>
@@ -197,7 +197,7 @@ export function DataTable<T>({
             type="button"
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={safePage === 0}
-            className="inline-flex items-center justify-center border border-border bg-surface p-1.5 transition-colors hover:bg-surface-raised disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex items-center justify-center border border-border bg-surface p-1.5 shadow-sm transition-colors hover:bg-surface-raised disabled:cursor-not-allowed disabled:opacity-40"
             style={{ borderRadius: "var(--radius-md)" }}
             aria-label="Previous page"
           >

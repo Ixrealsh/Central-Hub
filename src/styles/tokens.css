@@ -1,4 +1,8 @@
 :root {
+  --font-ui: "Inter", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-data: "Roboto", "Inter", system-ui, sans-serif;
+
   --bg: #FAFAFA;
   --surface: #FFFFFF;
   --surface-raised: #FFFFFF;
