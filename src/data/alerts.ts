@@ -1,0 +1,2 @@
+export { alerts } from "./seed";
+

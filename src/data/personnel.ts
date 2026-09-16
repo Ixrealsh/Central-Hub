@@ -1,0 +1,2 @@
+export { personnel } from "./seed";
+

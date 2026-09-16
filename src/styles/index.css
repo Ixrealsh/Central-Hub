@@ -1,0 +1,170 @@
+@import "./tokens.css";
+@import "tailwindcss";
+@import url("@fontsource/inter/400.css");
+@import url("@fontsource/inter/600.css");
+
+/* ── Tailwind v4 theme extension via @theme ─────────────────────────── */
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-green: var(--accent-green);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-red: var(--accent-red);
+
+  --color-accent-blue-bg: var(--accent-blue-bg);
+  --color-accent-green-bg: var(--accent-green-bg);
+  --color-accent-amber-bg: var(--accent-amber-bg);
+  --color-accent-red-bg: var(--accent-red-bg);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+}
+
+/* ── Base styles ────────────────────────────────────────────────────── */
+:root {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Keep every nested panel compact and consistent across browsers. */
+html {
+  scrollbar-gutter: stable;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+  background-color: var(--scrollbar-thumb);
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+.overflow-x-auto,
+.overflow-y-auto {
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+.operations-map {
+  height: min(62vh, 620px);
+  min-height: 400px;
+}
+
+.operations-map--compact {
+  height: 240px;
+  min-height: 240px;
+}
+
+.operations-map .leaflet-container {
+  min-height: inherit;
+  background: var(--bg);
+  color: var(--text-primary);
+  font: inherit;
+}
+
+.operations-map .leaflet-control-zoom,
+.operations-map .leaflet-bar {
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-elevated);
+}
+
+.operations-map .leaflet-control-zoom a {
+  color: var(--text-primary);
+  background: var(--surface);
+  border-bottom-color: var(--border);
+}
+
+.operations-map .leaflet-control-zoom a:hover {
+  color: var(--accent-blue);
+  background: var(--surface-raised);
+}
+
+.operations-map .leaflet-control-attribution {
+  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+}
+
+.operations-map .leaflet-control-attribution a {
+  color: var(--accent-blue);
+}
+
+.operations-map__label {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  background: var(--surface);
+  box-shadow: var(--shadow-elevated);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.operations-map__label::before {
+  border-top-color: var(--border);
+}
+
+@media (max-width: 640px) {
+  .operations-map {
+    height: 56vh;
+    min-height: 360px;
+  }
+
+  .operations-map__label {
+    display: none;
+  }
+}
+
+/* ── Focus visible ──────────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

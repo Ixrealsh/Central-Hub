@@ -1,0 +1,2 @@
+export { locations } from "./seed";
+

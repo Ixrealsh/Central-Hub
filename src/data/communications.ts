@@ -1,0 +1,2 @@
+export { communications } from "./seed";
+
