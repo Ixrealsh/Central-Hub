@@ -25,27 +25,76 @@ export default function MapPage() {
     <>
       <PageHeader title="Map" description="Live view of operations, assets, and locations." />
 
-      {/* Layer toggles */}
-      <div className="page-toolbar">
-        {([
-          { key: "locations", label: "Locations", val: showLocations, set: setShowLocations },
-          { key: "operations", label: "Operations", val: showOperations, set: setShowOperations },
-          { key: "assets", label: "Assets", val: showAssets, set: setShowAssets },
-        ] as const).map((layer) => (
-          <button
-            key={layer.key}
-            type="button"
-            onClick={() => layer.set(!layer.val)}
-            className={`border px-3 py-1 transition-colors ${
-              layer.val
-                ? "border-accent-blue bg-accent-blue-bg text-accent-blue"
-                : "border-border text-text-secondary hover:bg-surface-raised"
-            }`}
-            style={{ fontSize: "12px", borderRadius: "var(--radius-sm)" }}
-          >
-            {layer.label}
-          </button>
-        ))}
+      {/* Layer toggles & Pointer Legend */}
+      <div className="page-toolbar flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-text-secondary font-semibold mr-1" style={{ fontSize: "11px", letterSpacing: "0.05em" }}>
+            LAYERS:
+          </span>
+          {([
+            {
+              key: "locations",
+              label: "Command Hubs & Sites",
+              val: showLocations,
+              set: setShowLocations,
+              badges: [
+                { color: "bg-blue-600", label: "HQ" },
+                { color: "bg-amber-500", label: "Site" },
+              ],
+            },
+            {
+              key: "operations",
+              label: "Operations",
+              val: showOperations,
+              set: setShowOperations,
+              badges: [
+                { color: "bg-emerald-500", label: "Active" },
+                { color: "bg-blue-500", label: "Standby" },
+              ],
+            },
+            {
+              key: "assets",
+              label: "Tactical Assets",
+              val: showAssets,
+              set: setShowAssets,
+              badges: [
+                { color: "bg-emerald-400", label: "Active" },
+                { color: "bg-blue-400", label: "Standby" },
+              ],
+            },
+          ] as const).map((layer) => (
+            <button
+              key={layer.key}
+              type="button"
+              onClick={() => layer.set(!layer.val)}
+              className={`inline-flex items-center gap-2 border px-3 py-1.5 transition-colors ${
+                layer.val
+                  ? "border-accent-blue bg-accent-blue-bg text-accent-blue font-medium"
+                  : "border-border text-text-secondary hover:bg-surface-raised opacity-60"
+              }`}
+              style={{ fontSize: "12px", borderRadius: "var(--radius-sm)" }}
+            >
+              <div className="flex items-center -space-x-1">
+                {layer.badges.map((b, i) => (
+                  <span key={i} className={`inline-block h-2.5 w-2.5 rounded-full ring-1 ring-surface ${b.color}`} />
+                ))}
+              </div>
+              <span>{layer.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Tactical Pointer Legend */}
+        <div className="hidden sm:flex items-center gap-3 text-text-secondary" style={{ fontSize: "11.5px" }}>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
+            <strong className="text-text-primary font-medium">Green Pin:</strong> Active Op
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]" />
+            <strong className="text-text-primary font-medium">Blue Pin:</strong> Standby Op / HQ
+          </span>
+        </div>
       </div>
 
       <OperationsMap
@@ -53,6 +102,8 @@ export default function MapPage() {
         showOperations={showOperations}
         showAssets={showAssets}
         onMarkerClick={handleMarkerClick}
+        selectedId={panelOpen ? panelId ?? undefined : undefined}
+        selectedType={panelOpen ? panelType ?? undefined : undefined}
       />
 
       {/* Location list below map */}

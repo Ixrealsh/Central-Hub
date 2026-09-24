@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { StatCard } from "@/components/data-display/StatCard";
 import { StatusBadge } from "@/components/data-display/StatusBadge";
@@ -27,6 +27,7 @@ function relTime(iso: string): string {
 }
 
 export default function DashboardPage() {
+  const navigate = useNavigate();
   const activeOps = operations.filter((o) => o.status === "active");
   const activePersonnel = personnel.filter((p) => p.status === "active").length;
   const activeAssets = allAssets.filter((a) => a.status === "active").length;
@@ -125,7 +126,14 @@ export default function DashboardPage() {
             <h2 className="font-semibold" style={{ fontSize: "15px", lineHeight: "22px" }}>Map</h2>
             <Link to="/map" className="text-accent-blue hover:underline" style={{ fontSize: "12px" }}>Open full map</Link>
           </div>
-          <OperationsMap compact />
+          <OperationsMap
+            compact
+            onMarkerClick={(type, id) => {
+              if (type === "operation") navigate(`/operations/${id}`);
+              else if (type === "asset") navigate(`/assets/${id}`);
+              else navigate("/map");
+            }}
+          />
         </div>
       </div>
 

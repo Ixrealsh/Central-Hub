@@ -41,7 +41,6 @@ export default function OperationDetailPage() {
 
   useEffect(() => {
     if (!id) return;
-    setIsLoading(true);
     getOperationById(id).then((result) => {
       if (!result) setNotFound(true);
       else setOp(result);

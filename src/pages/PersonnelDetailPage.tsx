@@ -18,7 +18,6 @@ export default function PersonnelDetailPage() {
 
   useEffect(() => {
     if (!id) return;
-    setIsLoading(true);
     getPersonnelById(id).then((r) => { if (!r) setNotFound(true); else setPerson(r); setIsLoading(false); });
   }, [id]);
 

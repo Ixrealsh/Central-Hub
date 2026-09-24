@@ -132,7 +132,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <button
         type="button"
         onClick={() => setMobileOpen(true)}
-        className="fixed left-4 top-3 z-30 inline-flex items-center justify-center p-1.5 text-text-secondary lg:hidden"
+        className="fixed left-4 top-3 z-[2010] inline-flex items-center justify-center p-1.5 text-text-secondary lg:hidden"
         style={{ borderRadius: "var(--radius-md)" }}
         aria-label="Open navigation"
       >
@@ -170,11 +170,11 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {mobileOpen && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/30 lg:hidden"
+            className="fixed inset-0 z-[2100] bg-black/30 lg:hidden"
             onClick={() => setMobileOpen(false)}
             aria-hidden="true"
           />
-          <aside className="fixed inset-y-0 left-0 z-50 flex w-60 flex-col border-r border-border bg-surface lg:hidden">
+          <aside className="fixed inset-y-0 left-0 z-[2200] flex w-60 flex-col border-r border-border bg-surface lg:hidden">
             <div className="flex h-14 items-center justify-between border-b border-border px-5">
               <div className="flex items-center gap-2">
                 <div

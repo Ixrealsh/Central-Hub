@@ -55,11 +55,11 @@ export function CommandPalette({ open, onClose, onNavigate }: CommandPaletteProp
   return (
     <>
       <div
-        className="fixed inset-0 z-50 bg-black/30"
+        className="fixed inset-0 z-[2300] bg-black/40 backdrop-blur-[1px]"
         onClick={() => { onClose(); setQuery(""); }}
         aria-hidden="true"
       />
-      <div className="fixed inset-x-0 top-[20%] z-50 mx-auto w-full max-w-lg px-4">
+      <div className="fixed inset-x-0 top-[20%] z-[2400] mx-auto w-full max-w-lg px-4">
         <Command
           className="border border-border bg-surface overflow-hidden"
           style={{

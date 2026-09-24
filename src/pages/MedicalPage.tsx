@@ -19,7 +19,6 @@ export default function MedicalPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
     getMedicalSummary().then(setSummary).finally(() => setIsLoading(false));
   }, []);
 

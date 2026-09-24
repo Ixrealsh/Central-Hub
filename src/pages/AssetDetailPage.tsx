@@ -16,7 +16,6 @@ export default function AssetDetailPage() {
 
   useEffect(() => {
     if (!id) return;
-    setIsLoading(true);
     getAssetById(id).then((r) => { if (!r) setNotFound(true); else setAsset(r); setIsLoading(false); });
   }, [id]);
 
